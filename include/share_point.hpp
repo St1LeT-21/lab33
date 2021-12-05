@@ -1,18 +1,18 @@
 // Copyright 2021 Your Name <your_email>
 
-#ifndef INCLUDE_EXAMPLE_HPP_
-#define INCLUDE_EXAMPLE_HPP_
+#ifndef INCLUDE_SHARE_POINT_HPP_
+#define INCLUDE_SHARE_POINT_HPP_
 
 #include <iostream>
 
 template <typename T>
-class shared_ptr {
+class Shared_point {
  public:
-  shared_ptr();
-  shared_ptr(T* ptr);
-  shared_ptr(shared_ptr<T>& other);
-  shared_ptr<T> operator= (shared_ptr<T>& other);
-  ~shared_ptr();
+  Shared_point();
+  explicit Shared_point(T* ptr);
+  Shared_point(Shared_point<T>& other);
+  Shared_point<T> operator= (Shared_point<T>& other);
+  ~Shared_point();
   size_t use_count() const;
   bool unique() const;
  private:
@@ -21,33 +21,34 @@ class shared_ptr {
 };
 
 template<typename T>
-shared_ptr<T>::shared_ptr(){
+Shared_point<T>::Shared_point(){
   ptr = nullptr;
   count = nullptr;
 }
 
 template<typename T>
-shared_ptr<T>::shared_ptr(T* _ptr)
+Shared_point<T>::Shared_point(T* _ptr)
 {
   ptr = _ptr;
   count = new size_t(1);
 }
 
 template<typename T>
-shared_ptr<T>::shared_ptr(shared_ptr<T>& other){
+Shared_point<T>::Shared_point(Shared_point<T>& other){
   count = other.count;
   ptr = other.ptr;
   (*count)++;
 }
 
 template<typename T>
-shared_ptr<T> shared_ptr<T>::operator=(shared_ptr<T>& other){
+Shared_point<T> Shared_point<T>::operator=(Shared_point<T>& other){
   if (this != &other) {
     if (*count == 1) {
       delete count;
       delete ptr;
     }
-    else (*count)--;
+    else
+      (*count)--;
 
 
     ptr = other.ptr;
@@ -58,24 +59,25 @@ shared_ptr<T> shared_ptr<T>::operator=(shared_ptr<T>& other){
 }
 
 template<typename T>
-shared_ptr<T>::~shared_ptr(){
+Shared_point<T>::~Shared_point(){
   if (count) {
     if (*count == 1) {
       delete count;
       delete ptr;
     }
-    else (*count)--;
+    else
+      (*count)--;
   }
 }
 
 template<typename T>
-size_t shared_ptr<T>::use_count() const{
+size_t Shared_point<T>::use_count() const{
   return (count) ? *count : 0;
 }
 
 template<typename T>
-bool shared_ptr<T>::unique() const{
+bool Shared_point<T>::unique() const{
   return (*count == 1);
 }
 
-#endif // INCLUDE_EXAMPLE_HPP_
+#endif // INCLUDE_SHARE_POINT_HPP_
