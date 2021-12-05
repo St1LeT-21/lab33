@@ -47,8 +47,9 @@ Shared_point<T> Shared_point<T>::operator=(Shared_point<T>& other){
       delete count;
       delete ptr;
     }
-    else
+    else {
       (*count)--;
+    }
 
 
     ptr = other.ptr;
@@ -65,8 +66,9 @@ Shared_point<T>::~Shared_point(){
       delete count;
       delete ptr;
     }
-    else
+    else {
       (*count)--;
+    }
   }
 }
 
