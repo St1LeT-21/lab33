@@ -5,6 +5,7 @@
 
 #include <iostream>
 
+
 template <typename T>
 class Shared_point {
  public:
